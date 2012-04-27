@@ -8,8 +8,28 @@
 # Brown       0;33     Yellow        1;33
 # Light Gray  0;37     White         1;37
 
+parse_git_branch ()
+{
+    git name-rev HEAD 2> /dev/null | sed 's#HEAD\ \(.*\)#(git::\1)##$'
+}
+parse_svn_branch() {
+    parse_svn_url | sed -e 's#^'"$(parse_svn_repository_root)"'##g' | awk -F / '{print "svn::("$1 "/" $2 ")"}'
+}
+parse_svn_url() {
+  svn info 2>/dev/null | sed -ne 's#^URL: ##p'
+}
+parse_svn_repository_root() {
+  svn info 2>/dev/null | sed -ne 's#^Repository Root: ##p'
+}
+
+settitle() {
+  echo "]0;test2" 
+}
+
 # Prompt Settings 
-PS1="\[\033[1;36m\]\u@\h\[\033[m\]:\[\033[1;32m\]\w\`if [[ \$? = "0" ]]; then echo "\\[\\033[m\\]"; else echo "\\[\\033[31m\\]"; fi\`#\[$(tput sgr0)\] "
+PS1="\[\033[1;36m\]\u@\h\[\033[m\]:\[\033[1;32m\]\w\\[\\033[m\\]\`if [[ \$? = "0" ]]; then echo "\\[\\033[m\\]"; else echo "\\[\\033[31m\\]"; fi\`#\[$(tput sgr0)\] "
+
+PROMPT_COMMAND='echo -ne "]0;${USER}@${HOSTNAME}:${PWD/#$HOME/~} $(parse_git_branch)$(parse_svn_branch)"'
 
 export LSCOLORS=GxFxCxDxBxegedabagaxad
 alias ls='ls -Gh'
@@ -37,26 +57,9 @@ vim=`type -P vim`
 PYTHONSTARTUP=~/.pythonrc.py
 export PYTHONSTARTUP
 
-parse_git_branch ()
-{
-  git name-rev HEAD 2> /dev/null | sed 's#HEAD\ \(.*\)#(git::\1)#'
-}
-parse_svn_branch() {
-  parse_svn_url | sed -e 's#^'"$(parse_svn_repository_root)"'##g' | awk -F / '{print "(svn::"$1 "/" $2 ")"}'
-}
-parse_svn_url() {
-  svn info 2>/dev/null | sed -ne 's#^URL: ##p'
-}
-parse_svn_repository_root() {
-  svn info 2>/dev/null | sed -ne 's#^Repository Root: ##p'
-}
 set -o emacs
 export EDITOR="$vim"
 export GIT_EDITOR="$vim"
-
-# Add git and svn branch names
-export PS1="$PS1\$(parse_git_branch)\$(parse_svn_branch) "
-
 
 #-------------------------------------------------------------
 # A few fun ones
@@ -77,16 +80,6 @@ function xtitle()      # Adds some text in the terminal frame.
 alias top='xtitle Processes on $HOST && top'
 alias make='xtitle Making $(basename $PWD) ; make'
 alias ncftp="xtitle ncFTP ; ncftp"
-
-# .. and functions
-function man()
-{
-    for i ; do
-        xtitle The $(basename $1|tr -d .[:digit:]) manual
-        command man -F -a "$i"
-    done
-}
-
 
 #-------------------------------------------------------------
 # Make the following commands run in background automatically:

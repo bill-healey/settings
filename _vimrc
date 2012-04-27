@@ -39,7 +39,7 @@ set incsearch               " Incrementally search while typing a /regex
 
 
 syntax on
-colorscheme ansi_blows
+colorscheme torte
 
 nnoremap j gj
 nnoremap k gk
@@ -147,3 +147,7 @@ EOF
 if filereadable($VIRTUAL_ENV . '/.vimrc')
     source $VIRTUAL_ENV/.vimrc
 endif
+
+set title 
+set titleold=hostname()
+set titlestring=VIM:\ %F 
