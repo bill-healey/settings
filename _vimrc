@@ -39,7 +39,7 @@ set incsearch               " Incrementally search while typing a /regex
 
 
 syntax on
-colorscheme torte
+colorscheme ansi_blows
 
 nnoremap j gj
 nnoremap k gk
