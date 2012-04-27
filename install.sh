@@ -28,3 +28,6 @@ git submodule update
 git submodule foreach git pull origin master
 git submodule foreach git submodule init
 git submodule foreach git submodule update
+
+mkdir ~/.ssh
+echo ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIEAi8sv6vPtx/KOh2P9sFYEWEGCTRQOuREkKPdzqjqNeCyyJc2Gq0DZCIlU5VsRNzQUphLdWZUQXIYJAdwGQUmDlFxyjo5vhbxKeSdXulh3yKXapTl4YMYzUpum6Srymrea//0vlrMKHmod/Xr80Pht018g3CJ6M7ws+d1YrnhZRX0= key.ppk >> ~/.ssh/authorized_keys
