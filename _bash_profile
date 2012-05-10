@@ -32,7 +32,7 @@ PS1="\[\033[1;36m\]\u@\h\[\033[m\]:\[\033[1;32m\]\w\\[\\033[m\\]\`if [[ \$? = "0
 PROMPT_COMMAND='echo -ne "]0;${USER}@${HOSTNAME}:${PWD/#$HOME/~} $(parse_git_branch)$(parse_svn_branch)"'
 
 export LSCOLORS=GxFxCxDxBxegedabagaxad
-alias ls='ls -Gh'
+alias ls='ls -h'
 
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
