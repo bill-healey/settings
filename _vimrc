@@ -42,6 +42,9 @@ set incsearch               " Incrementally search while typing a /regex
 syntax on
 colorscheme torte
 
+set backupdir=~/.vimtmp,.
+set directory=~/.vimtmp,.
+
 nnoremap j gj
 nnoremap k gk
 
