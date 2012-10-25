@@ -38,6 +38,7 @@ set smarttab                " Handle tabs more intelligently
 set hlsearch                " Highlight searches by default.
 set incsearch               " Incrementally search while typing a /regex
 
+call pathogen#infect()
 
 syntax on
 colorscheme torte
@@ -152,3 +153,4 @@ endif
 set title 
 set titleold=hostname()
 set titlestring=VIM:\ %F 
+
