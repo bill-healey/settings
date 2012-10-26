@@ -104,13 +104,23 @@ nnoremap <leader>g :GundoToggle<CR>
 " Open Quickfix
 nnoremap <leader>q :copen<CR>
 
+" Open Git status
+nnoremap <leader>s :Gstatus<CR>
+
+" Open Git diff
+nnoremap <leader>d :Gdiff<CR>
 
 " Remove trailing whitespace on <leader>S
 nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
 
-
 " Select the item in the list with enter
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Map ctrl-movement keys to window switching
+map <C-k> <C-w><Up>
+map <C-j> <C-w><Down>
+map <C-l> <C-w><Right>
+map <C-h> <C-w><Left>
 
 " ==========================================================
 " Javascript
