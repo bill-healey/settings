@@ -73,15 +73,13 @@ map <c-h> <c-w>h
 "  happen as if in command mode )
 imap <C-W> <C-O><C-W>
 
-" Open NerdTree
-map <leader>n :NERDTreeToggle<CR>
 
-" Open Gundo
-map <leader>g :GundoToggle<CR>
+set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%{fugitive#statusline()}%c,%l/%L\ %P
 
 set title                     " show title in console title bar
 set wildmenu                  " Menu completion in command mode on <Tab>
 set wildmode=full             " <Tab> cycles between all matching choices.
+set laststatus=2
 
 " don't bell or blink
 set noerrorbells
@@ -97,9 +95,15 @@ set wildignore+=*.egg-info/**
 set completeopt=menuone,longest,preview
 set pumheight=6             " Keep a small completion window
 
+" Open NerdTree
+nnoremap <leader>n :NERDTreeToggle<CR>
 
-" Quit window on <leader>q
-nnoremap <leader>q :q<CR>
+" Open Gundo
+nnoremap <leader>g :GundoToggle<CR>
+
+" Open Quickfix
+nnoremap <leader>q :copen<CR>
+
 
 " Remove trailing whitespace on <leader>S
 nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
@@ -117,7 +121,6 @@ au BufRead *.js set makeprg=jslint\ %
 "autocmd VimEnter * imap <expr> <Tab> pumvisible() ? "<C-N>" : "<Tab>"
 "autocmd VimEnter * imap <expr> <S-Tab> pumvisible() ? "<C-P>" : "<S-Tab>"
 
-let g:acp_completeoptPreview=1
 
 " ===========================================================
 " FileType specific changes
@@ -133,6 +136,7 @@ au FileType python setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 nosma
 au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 " Don't let pyflakes use the quickfix window
 let g:pyflakes_use_quickfix = 0
+let g:acp_completeoptPreview=1
 
 
 
@@ -153,7 +157,7 @@ if filereadable($VIRTUAL_ENV . '/.vimrc')
     source $VIRTUAL_ENV/.vimrc
 endif
 
-set title 
+set title
 set titleold=hostname()
-set titlestring=VIM:\ %F 
+set titlestring=VIM:\ %F
 
