@@ -113,6 +113,9 @@ nnoremap <leader>d :Gdiff<CR>
 " Remove trailing whitespace on <leader>S
 nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
 
+" Set pasted with leader p
+nnoremap <leader>p :set paste<CR>
+
 " Select the item in the list with enter
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
