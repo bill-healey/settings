@@ -41,11 +41,11 @@ TZ='America/Los_Angeles'; export TZ
 
 #osx color terminal
 export CLICOLOR=1
-# don't put duplicate lines in the history. See bash(1) for more options
-# don't overwrite GNU Midnight Commander's setting of `ignorespace'.
-HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
-# ... or force ignoredups and ignorespace
+# Force ignoredups and ignorespace
 HISTCONTROL=ignoreboth
+HISTSIZE=9000
+HISTFILESIZE=9000
+HISTIGNORE="ls:fg:bg:exit:clear"
 # append to the history file, don't overwrite it
 shopt -s histappend
 # check the window size after each command and, if necessary,
