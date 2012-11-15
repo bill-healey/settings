@@ -1,7 +1,4 @@
 set nocompatible
-source $VIMRUNTIME/vimrc_example.vim
-source $VIMRUNTIME/mswin.vim
-
 
 set history=1000
 set so=3
@@ -150,6 +147,10 @@ au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\
 " Don't let pyflakes use the quickfix window
 let g:pyflakes_use_quickfix = 0
 let g:acp_completeoptPreview=1
+
+" Syntastic settings
+let g:syntastic_python_checker_args = "--ignore=E501"
+let g:syntastic_check_on_open=1
 
 
 
