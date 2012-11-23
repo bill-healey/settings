@@ -56,7 +56,6 @@ nnoremap <C-n> :tabn<CR>
 nnoremap <C-p> :tabp<CR>
 
 set nocompatible              " Don't be compatible with vi
-let mapleader=","             " change the leader to be a comma vs slash
 command! W :w
 cmap w!! w !sudo tee % >/dev/null
 
@@ -92,6 +91,25 @@ set wildignore+=*.egg-info/**
 set completeopt=menuone,longest,preview
 set pumheight=6             " Keep a small completion window
 
+" Pyflakes settings
+let g:pyflakes_use_quickfix = 0
+let g:acp_completeoptPreview=1
+
+" Syntastic settings
+let g:syntastic_python_checker_args = "--ignore=E501"
+let g:syntastic_check_on_open=1
+
+" NERDTree settings
+let NERDChristmasTree=1
+let NERDTreeQuitOnOpen=1
+let NERDTreeDirArrows=0
+let NERDTreeCascadeOpenSingleChildDir=1
+let NERDTreeHighlightCursorline=1
+let NERDTreeMapOpenInTab='<CR>'
+
+" Leader-based mappings
+let mapleader=","             " change the leader to be a comma vs slash
+
 " Open NerdTree
 nnoremap <leader>n :NERDTreeToggle<CR>
 
@@ -112,6 +130,9 @@ nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
 
 " Set pasted with leader p
 nnoremap <leader>p :set paste<CR>
+
+" Close current file with leader c
+nnoremap <leader>c :close<CR>
 
 " Select the item in the list with enter
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -144,15 +165,6 @@ autocmd FileType html,xhtml,xml,css setlocal expandtab shiftwidth=2 tabstop=2 so
 au FileType python set omnifunc=pythoncomplete#Complete
 au FileType python setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 nosmartindent cindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-" Don't let pyflakes use the quickfix window
-let g:pyflakes_use_quickfix = 0
-let g:acp_completeoptPreview=1
-
-" Syntastic settings
-let g:syntastic_python_checker_args = "--ignore=E501"
-let g:syntastic_check_on_open=1
-
-
 
 " Add the virtualenv's site-packages to vim path
 py << EOF

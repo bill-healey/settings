@@ -84,6 +84,24 @@ else
      start_agent;
 fi
 
+function choose_git_branch() #Show interactive git branch menu
+{
+    branches=()
+    eval "$(git for-each-ref --shell --format='branches+=(%(refname:short))' refs/heads/)"
+
+    # Set the prompt for the select command
+    PS3="Select a branch. 'q' to quit: "
+
+    select branch in "${branches[@]}"
+    do
+        if [ -n "$branch" ]; then
+            git checkout $branch
+        fi
+        break
+    done
+}
+alias cb="choose_git_branch"
+
 #-------------------------------------------------------------
 # A few fun ones
 #-------------------------------------------------------------
