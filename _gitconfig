@@ -8,6 +8,9 @@
     branch = auto
     ui = auto
 
+[branch]
+    autosetuprebase = always
+
 [push]
 	default = tracking
 
