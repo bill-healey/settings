@@ -1,6 +1,6 @@
 [user]
     name = Bill Healey
-    email = brulez@gmail.com
+    email = bill@elacarte.com
 
 [color]
     diff = auto
@@ -17,7 +17,7 @@
 [core]
     editor = vim
     pager = less -R
-	autocrlf = true
+	autoclrf = input
 
 [alias]
     diverges = !bash -c 'diff -u <(git rev-list --first-parent "${1}") <(git rev-list --first-parent "${2:-HEAD}") | sed -ne \"s/^ //p\" | head -1' -
@@ -51,3 +51,5 @@
 
 [merge]
 	tool = vimdiff
+[diff]
+	algorithm = patience

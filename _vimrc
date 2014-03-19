@@ -176,7 +176,7 @@ au BufRead *.js set makeprg=jslint\ %
 " Mako/HTML
 filetype plugin on
 autocmd BufNewFile,BufRead *.mako,*.mak,*.jinja2 setlocal ft=html
-autocmd FileType html,xhtml,xml,css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType html,xhtml,xml,css,js setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 smartindent nocindent noautoindent
 
 " Python
 "au BufRead *.py compiler nose

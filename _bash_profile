@@ -8,10 +8,6 @@
 # Brown       0;33     Yellow        1;33
 # Light Gray  0;37     White         1;37
 
-parse_git_branch ()
-{
-    git name-rev HEAD 2> /dev/null | sed 's#HEAD\ \(.*\)#(git::\1)##$'
-}
 parse_svn_branch() {
     parse_svn_url | sed -e 's#^'"$(parse_svn_repository_root)"'##g' | awk -F / '{print "svn::("$1 "/" $2 ")"}'
 }
@@ -22,14 +18,26 @@ parse_svn_repository_root() {
   svn info 2>/dev/null | sed -ne 's#^Repository Root: ##p'
 }
 
+__git_ps1 () 
+{ 
+    local b="$(git symbolic-ref HEAD 2>/dev/null)";
+    if [ -n "$b" ]; then
+        printf " (%s)" "${b##refs/heads/}";
+    fi
+}
+
 settitle() {
   echo "]0;test2" 
 }
 
 # Prompt Settings 
-PS1="\[\033[1;36m\]\u@\h\[\033[m\]:\[\033[1;32m\]\w\\[\\033[m\\]\`if [[ \$? = "0" ]]; then echo "\\[\\033[m\\]"; else echo "\\[\\033[31m\\]"; fi\`#\[$(tput sgr0)\] "
+if [ "$TERM" = "screen" ]; then
+    PS1="\[\033[1;36m\]\u@\h\[\033[m\]:\[\033[1;32m\]\w\\[\\033[m\\]\[\033[0;33m\]\$(__git_ps1)\`if [[ \$? = "0" ]]; then echo "\\[\\033[m\\]"; else echo "\\[\\033[31m\\]"; fi\`#\[$(tput sgr0)\] "
+else
+    PS1="\[\033[1;36m\]\u@\h\[\033[m\]:\[\033[1;32m\]\w\\[\\033[m\\]\`if [[ \$? = "0" ]]; then echo "\\[\\033[m\\]"; else echo "\\[\\033[31m\\]"; fi\`#\[$(tput sgr0)\] "
+fi
 
-PROMPT_COMMAND='echo -ne "]0;${USER}@${HOSTNAME}:${PWD/#$HOME/~} $(parse_git_branch)$(parse_svn_branch)"'
+PROMPT_COMMAND='echo -ne "]0;${USER}@${HOSTNAME}:${PWD/#$HOME/~} $(__git_ps1 "(git::%s)")$(parse_svn_branch)"'
 PROMPT_COMMAND="history -a; history -r; $PROMPT_COMMAND"
 
 export LSCOLORS=GxFxCxDxBxegedabagaxad
@@ -101,7 +109,7 @@ function choose_git_branch() #Show interactive git branch menu
         break
     done
 }
-alias cb="choose_git_branch"
+alias branches="choose_git_branch"
 
 #-------------------------------------------------------------
 # A few fun ones
@@ -111,7 +119,7 @@ alias cb="choose_git_branch"
 function xtitle()      # Adds some text in the terminal frame.
 {
     case "$TERM" in
-        *term | rxvt)
+        *term | rxvt | screen)
             echo -n -e "\033]0;$*\007" ;;
         *)  
             ;;
